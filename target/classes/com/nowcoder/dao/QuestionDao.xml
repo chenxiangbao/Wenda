@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nowcoder.dao.QuestionDao">
+    <sql id="table">question</sql>
+    <sql id="selectFields">id,title,content,user_id,created_date,comment_count </sql>
+    <select id="selectQuestionByUserId" resultType="com.nowcoder.model.Question">
+        SELECT
+        <include refid="selectFields"></include>
+        FROM
+        <include refid="table"></include>
+        <if test="userId !=0">
+            WHERE user_id=#{userId}
+        </if>
+        order by id desc
+        limit #{offset},#{limit}
+    </select>
+    <select id="selectAllQuestion" resultType="com.nowcoder.model.Question">
+        SELECT
+        <include refid="selectFields"/>
+        FROM
+        <include refid="table"/>
+        ORDER BY id DESC
+        limit #{offset},#{limit}
+    </select>
+</mapper>

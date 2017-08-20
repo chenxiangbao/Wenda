@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nowcoder.dao.CommentDao">
+    <sql id="table">comment</sql>
+    <sql id="selectFields">id,content,user_id,created_date,entity_id,entity_type,status </sql>
+    <select id="getCommentByEntityId" resultType="com.nowcoder.model.Comment">
+        SELECT
+        <include refid="selectFields"></include>
+        FROM
+        <include refid="table"></include>
+        <if test="entityId !=0">
+            WHERE entity_id=#{entityId}
+        </if>
+        order by id desc
+        limit #{offset},#{limit}
+    </select>
+
+</mapper>
